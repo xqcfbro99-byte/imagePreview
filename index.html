@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Image Preview 组件测试</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 32px;
+      margin-bottom: 30px;
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .loader-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    input {
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+
+    button {
+      padding: 12px 28px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    }
+
+    button:hover {
+      background: #357abd;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .preview-root {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      color: #999;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .loader-row {
+        grid-template-columns: 1fr;
+        margin-bottom: 20px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Image Preview 组件</h1>
+
+    <div class="loader-row">
+      <input id="urlInput" type="text" placeholder="输入图片 URL" />
+      <input id="fileNameInput" type="text" placeholder="输入图片文件名（可选）" />
+      <button id="loadBtn">预览</button>
+    </div>
+
+    <div id="previewRoot" class="preview-root">在上方输入图片 URL 点击预览按钮</div>
+  </main>
+
+  <script type="module">
+    import { ImagePreview } from './imagePreview.js';
+
+    const urlInput = document.getElementById('urlInput');
+    const fileNameInput = document.getElementById('fileNameInput');
+    const loadBtn = document.getElementById('loadBtn');
+
+    // 默认示例图片
+    urlInput.value = 'https://picsum.photos/1200/800';
+
+    loadBtn.addEventListener('click', () => {
+      const url = urlInput.value.trim();
+      const fileName = fileNameInput.value.trim();
+      if (!url) return alert('请输入 URL');
+      ImagePreview.view(url, fileName || undefined).error(err => {
+        alert('加载失败: ' + err.message);
+      });
+    });
+  </script>
+</body>
+</html>
