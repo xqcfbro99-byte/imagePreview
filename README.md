@@ -189,8 +189,7 @@ ImagePreview.view(url, fileName)
 imageView/
 ├── README.md                 # 项目说明文档
 ├── index.html               # 测试演示页面
-└── src/
-    └── imagePreview.js      # 组件源码（核心文件）
+└── imagePreview.js      # 组件源码（核心文件）
 ```
 
 ## 💡 最佳实践
@@ -212,32 +211,3 @@ const customName = prompt('请输入文件名');
 ImagePreview.view(url, customName || 'image.jpg');
 ```
 
-## 🚀 本地运行
-
-1. 克隆或下载项目
-2. 在项目根目录运行本地HTTP服务器：
-
-```bash
-# Python 3
-python -m http.server 8000
-
-# Node.js
-npx http-server
-
-# 使用 live-server
-npx live-server
-```
-
-3. 打开浏览器访问 `http://localhost:8000/`
-
-## 📄 许可证
-
-MIT License © 2026
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request！
-
-## 📞 反馈
-
-有问题或建议？欢迎通过GitHub Issues联系我们。
